@@ -1,0 +1,37 @@
+
+  <div class="card m-3">
+    <div class="card-header">
+      <%= @restaurant.name %>
+    </div>
+    <div class="card-body">
+      <p class="card-text form-floating"><%= @restaurant.address %></p>
+      <p class="card-text form-floating"><%= @restaurant.phone_number %></p>
+      <p class="card-text form-floating"><%= @restaurant.category %></p>
+      <%# <%= link_to "Edit", edit_article_path, class: "btn btn-primary" %>
+      <%# <%= link_to "Delete article", %>
+            <%# article_path(@article), %>
+            <%# method: :delete, %>
+            <%# class: "btn btn-danger", %>
+            <%# data: { confirm: "Are you sure?" } %>
+    </div>
+  </div>
+
+<%= link_to "Add review", new_restaurant_review_path(@restaurant), class: "btn btn-secondary" %>
+<%= link_to "Back to list", restaurants_path, class: "btn btn-primary" %>
+<%= link_to "Delete",
+            restaurant_path(@restaurant),
+            method: :delete,
+            class: "btn btn-danger",
+            data: { confirm: "Are you sure?" } %>
+
+<% @restaurant.reviews.each do |review| %>
+<div class="card">
+  <div class="card-header">
+    Rating: <%= review.rating %> / 5
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Review no. <%= review.id %>, created at <%= review.created_at %> </h5>
+    <p class="card-text"><%= review.content %></p>
+  </div>
+</div>
+<% end %>

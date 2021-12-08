@@ -1,0 +1,23 @@
+<h1>Create a new restaurant</h1>
+
+<%= simple_form_for(@restaurant) do |f| %>
+  <div class="form-floating m-3">
+    <%= f.input :name, class: "form-control" %>
+  </div>
+  <div class="form-floating m-3">
+    <%= f.input :address, class: "form-control", style: "height: 75px" %>
+  </div>
+  <div class="form-floating m-3">
+    <%= f.input :category, class: "form-control" %>
+  </div>
+  <div class="form-floating m-3">
+    <%= f.input :phone_number, class: "form-control" %>
+  </div>
+  <% if @restaurant.id%>
+    <%= f.submit "Submit", class: "btn btn-default btn-primary m-3" %>
+    <%= link_to "Cancel", restaurants_path, class: "btn btn-light" %>
+    <% else %>
+    <%= f.submit "Submit", class: "btn btn-default btn-primary m-3" %>
+    <%= link_to "Cancel", restaurants_path, class: "btn btn-light" %>
+  <% end %>
+<% end %>
