@@ -1,20 +1,13 @@
-
-  <div class="card m-3">
-    <div class="card-header">
-      <%= @restaurant.name %>
-    </div>
-    <div class="card-body">
-      <p class="card-text form-floating"><%= @restaurant.address %></p>
-      <p class="card-text form-floating"><%= @restaurant.phone_number %></p>
-      <p class="card-text form-floating"><%= @restaurant.category %></p>
-      <%# <%= link_to "Edit", edit_article_path, class: "btn btn-primary" %>
-      <%# <%= link_to "Delete article", %>
-            <%# article_path(@article), %>
-            <%# method: :delete, %>
-            <%# class: "btn btn-danger", %>
-            <%# data: { confirm: "Are you sure?" } %>
-    </div>
+<div class="card m-3">
+  <div class="card-header">
+    <%= @restaurant.name %>
   </div>
+  <div class="card-body">
+    <p class="card-text form-floating"><%= @restaurant.address %></p>
+    <p class="card-text form-floating"><%= @restaurant.phone_number %></p>
+    <p class="card-text form-floating"><%= @restaurant.category %></p>
+  </div>
+</div>
 
 <%= link_to "Add review", new_restaurant_review_path(@restaurant), class: "btn btn-secondary" %>
 <%= link_to "Back to list", restaurants_path, class: "btn btn-primary" %>
@@ -25,13 +18,27 @@
             data: { confirm: "Are you sure?" } %>
 
 <% @restaurant.reviews.each do |review| %>
-<div class="card">
-  <div class="card-header">
-    Rating: <%= review.rating %> / 5
+  <div class="card">
+    <div class="card-header">
+      Rating: <%= review.rating %> / 5
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Review no. <%= review.id %>, created at <%= review.created_at %> </h5>
+      <p class="card-text"><%= review.content %></p>
+    </div>
   </div>
-  <div class="card-body">
-    <h5 class="card-title">Review no. <%= review.id %>, created at <%= review.created_at %> </h5>
-    <p class="card-text"><%= review.content %></p>
-  </div>
-</div>
 <% end %>
+
+<h2>Add a review !</h2>
+<% @review = Review.new  %>
+<% @review.restaurant = @restaurant %>
+<%= simple_form_for([@restaurant, @review]) do |f| %>
+  <div class="form-floating m-3">
+    <%= f.input :rating, class: "form-control" %>
+  </div>
+  <div class="form-floating m-3">
+    <%= f.input :content, class: "form-control", style: "height: 100px" %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-default btn-primary m-3" %>
+  <%= link_to "Cancel", restaurant_path(@restaurant), class: "btn btn-light" %>
+<% end  %>
